@@ -1,19 +1,25 @@
-/*
 #container{
-    width: 450px;
-    height: 450px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    outline: 2px solid rgb(25, 25, 25);
-    text-align: center;
-
+    width: 400px;
+    height: 400px;
+    border: 1px solid rgb(146, 146, 146);
+    border-radius: 1px;
+    background-color: rgb(146, 146, 146);
+    
 }
-*/
 
-/* #canvas{
-     outline: 2px solid rgb(255, 255, 255); 
-} */
+.square{
+    float: left;
+    background-image: url("../images/overlay.png");
+    background-size: cover; 
+    outline: 2px solid rgb(146, 146, 146);
+    
+}
+
+.bee{
+    float: left;
+    background-image: url("../images/bomb.png");
+    background-size: cover;
+    background-color: rgb(160, 14, 14);
+    border-radius: 3px;
+}
+
