@@ -1,55 +1,69 @@
-// $(document).ready(function(){
-//     // Global variables
-//     const canvas = $('#canvas')[0],
-//           ctx = canvas.getContext("2d"),
-//           w = $("#canvas").width(),
-//           h = $("#canvas").height(),
-//           cols = 10,
-//           rows = 10,
-//           cw = Math.floor(w/cols),
-//           ch = Math.floor(h/rows);
-    
-//     let bomb;
+$(document).ready(function(){
+    // Global variables
 
-//     function paintCanvas(){
-//         ctx.strokeStyle = "rgb(25,25,25)";
-//         ctx.strokeRect(0,0, w, h)
-        
-//         for (var i = 0; i < cols; i++){
-//             for(var j=0; j< rows; j++){
-//                 ctx.fillStyle = "white"
-//                 ctx.fillRect(cw*i, ch*j, w, h);
-//                 ctx.strokeStyle = "black";
-//                 ctx.strokeRect(i*cw, j*ch, w, h)
-//             }
-//         }
-//     }
-//     paintCanvas();
+    const boardW = $("#container").width(),
+          boardH = $("#container").height();
+          
+    let cols = 9, 
+        rows = 9,
+        numBombs=20,
+        bomb;
 
-//     function makebomb(){
-//         bomb = {
-//             x: Math.round(Math.random()*(w-cw)/cw), 
-// 			y: Math.round(Math.random()*(h-ch)/ch), 
-//         }
-//     }
-//     makebomb();
+    // Create the grid
+    function makeGrid(cols, rows){
+        for (var i = 0; i < cols; i++) {
+            for (var j = 0; j < rows; j++) {
+                $('#container').append("<div class='square "+i+j+"'></div>");   
+            }
+        $('.square').width(boardW/cols);
+        $('.square').height(boardH/rows);
+        }
+    }
     
-//     function paintBomb(){
-//         for (var i=0; i < cols; i ++ ){
-//             for (var j=0; j < rows; j ++ ){
-//                 if(Math.random(1) < 0.5){
-//                     ctx.fillStyle ="rgb(200, 200, 200)"
-//                     ctx.beginPath();
-//                     ctx.arc(i*cw + cw/2, j*ch + ch/2, cw/4, 0,  2*Math.PI)
-//                     ctx.stroke()
-//                     ctx.fill();
-//                     ctx.closePath()
-//                 }
-                
-//             }
-//         }
-//     }
-//     paintBomb()
+    // Creates a bomb
+    function makeBomb(){
+        bomb = {
+            x: Math.floor(Math.random()*cols),
+            y: Math.floor(Math.random()*rows),
+        }
+        $("."+bomb.x+bomb.y+"").addClass('bomb');
+    }
     
-// })
+   
+    function addBombstoBoard(){
+        for (var i = 0; i < numBombs; i++) {
+           makeBomb();
+        }
+         /*  this is just a filler for the moment. Will have to change randomisation
+        to eliminate possibility of a div location being selected twice 
+    */
+    };
+
+    function coverAllCells(){ 
+        $('.square').addClass('covered');  
+    }
+
+    function findClass(){
+        $('.square').click(function(){
+            var myClass = $(this).attr('class').split(" ")[1];
+            //console.log(myClass);     
+        }) 
+    }  // Helper function, used for visualisation of selected div in console only. 
+
+    function init(){
+        makeGrid(9, 9);
+        addBombstoBoard(); 
+        //coverAllCells();
+        findClass();
+        $('.square').click(function(){
+            $(this).removeClass('covered');
+            if($(this).hasClass('bomb')){
+                //setTimeout(function(){alert("You clicked a bomb"), 1000}); 
+                console.log("you clicked a bomb!")
+            } 
+        })
+    }
+    init()
+});  
+
 
