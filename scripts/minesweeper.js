@@ -53,7 +53,7 @@ $(document).ready(function(){
     function init(){
         makeGrid(9, 9);
         addBombstoBoard(); 
-        //coverAllCells();
+        coverAllCells();
         findClass();
         $('.square').click(function(){
             $(this).removeClass('covered');
